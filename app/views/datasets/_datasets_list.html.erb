@@ -1,0 +1,10 @@
+<div class="p-4 border border-w-2 border-gray-200">
+  <p class="font-medium text-2xl">Datasets — </p>
+  <ul>
+    <% current_user.datasets.each do |dataset| %>
+      <li class="list-disc font-medium mx-6 "><%= link_to dataset.name, dataset_path(dataset) %></li>
+  <% end %>
+  </ul>
+
+  <p class="my-4 text-sm"><%= link_to "> Upload a new dataset <", new_dataset_path %></p>
+</div>
