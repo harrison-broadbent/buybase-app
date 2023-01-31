@@ -1,12 +1,10 @@
 <div id="<%= dom_id dataset %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= dataset.name %>
-  </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= dataset.user_id %>
+  <p class="font-semibold text-4xl"><%= dataset.name %></p>
+
+  <p class="my-2">
+    <p>filename: <%= dataset.file.blob.filename %></p>
+    <p>filetype: <%= dataset.file.content_type %></p>
   </p>
 
   <% if action_name != "show" %>

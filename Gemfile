@@ -85,3 +85,6 @@ gem "tailwindcss-rails", "~> 2.0"
 gem 'foreman'
 gem 'omniauth-google-oauth2'
 gem "omniauth-rails_csrf_protection", "~> 1.0"
+gem 'csv', '~> 3.0'
+gem 'smarter_csv'
+

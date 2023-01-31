@@ -3,15 +3,18 @@
   <head>
     <title>Datamic</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= javascript_importmap_tags %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="container mx-auto mt-14 px-5 flex">
       <%= yield %>
     </main>
   </body>

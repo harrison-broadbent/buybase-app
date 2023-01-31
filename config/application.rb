@@ -18,6 +18,8 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+require 'smarter_csv'
+
 module Datamic
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

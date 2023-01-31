@@ -1,3 +1,4 @@
+
 class DatasetsController < ApplicationController
   before_action :set_dataset, only: %i[ show edit update destroy ]
 
@@ -8,6 +9,9 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1 or /datasets/1.json
   def show
+    @dataset.file.open do |file|
+      @data = SmarterCSV.process(file)
+    end
   end
 
   # GET /datasets/new
@@ -21,7 +25,7 @@ class DatasetsController < ApplicationController
 
   # POST /datasets or /datasets.json
   def create
-    @dataset = Dataset.new(dataset_params)
+    @dataset = current_user.datasets.create(dataset_params)
 
     respond_to do |format|
       if @dataset.save
@@ -65,6 +69,6 @@ class DatasetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dataset_params
-      params.require(:dataset).permit(:name, :user_id)
+      params.require(:dataset).permit(:name, :file)
     end
 end
