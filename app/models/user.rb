@@ -16,6 +16,7 @@
 #  uid                    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  connected_account_id   :string
 #
 # Indexes
 #
@@ -29,8 +30,19 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[github google_oauth2]
 
-  has_many :datasets
+  has_many :datasets, dependent: :destroy
 
+  after_create :create_connected_id
+
+  # Stripe methods
+  def create_connected_id
+    # create stripe connected account for the user
+    Stripe.api_key = Rails.application.credentials.stripe[:api_key]
+    acc = Stripe::Account.create({type: 'standard'})
+    puts acc.id, @user
+    self.connected_account_id = acc.id
+    self.save
+  end
 
   # Devise methods
   def self.from_omniauth(auth)

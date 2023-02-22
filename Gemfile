@@ -87,4 +87,7 @@ gem 'omniauth-google-oauth2'
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem 'csv', '~> 3.0'
 gem 'smarter_csv'
+gem "roo", "~> 2.9.0"
+gem 'gon'
+gem 'stripe'
 

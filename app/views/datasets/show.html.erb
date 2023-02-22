@@ -24,9 +24,27 @@
         <%= button_to 'Destroy this dataset', dataset_path(@dataset), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
       </div>
       <%= link_to 'Back to datasets', datasets_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <%#= link_to 'Share this database', "#", class: "copy-url-btn ml-2 rounded-lg py-3 px-5 bg-white border border-gray-200 inline-block font-medium"%>
       <button id="copy-url-btn" class="ml-2 rounded-lg py-3 px-5 bg-white border border-gray-200 inline-block font-medium">Share this database</button>
     </div>
 
   </div>
 </div>
+
+<script>
+    let url = document.location.href;
+    let btn = document.getElementById("copy-url-btn")
+
+    new ClipboardJS(btn, {
+        text: function() {
+            return url;
+        }
+    });
+
+    btn.addEventListener("click", function () {
+        btn.innerText = "Copied link!"
+    })
+
+    btn.addEventListener("mouseout", function () {
+        btn.innerText = "Share this database"
+    })
+</script>

@@ -14,6 +14,7 @@
 #  uid                    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  connected_account_id   :string
 #
 # Indexes
 #

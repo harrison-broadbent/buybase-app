@@ -1,4 +1,4 @@
-<div class="mx-auto px-4 sm:px-6 lg:px-8 w-[80vw]">
+<div id="data-table" class="mx-auto px-4 sm:px-6 lg:px-8 w-[80vw]">
   <div class="mt-8 flex flex-col">
     <div class="-my-2 -mx-4 overflow-x-auto overflow-y-scroll h-[60vh] sm:-mx-6 lg:-mx-8 pb-4">
       <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -6,21 +6,26 @@
 
           <table class="min-w-full divide-y divide-gray-300">
             <thead class="bg-gray-50">
-            <tr>
-              <% data[0].keys.each do |header| %>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%= header %></th>
-              <% end %>
-            </tr>
+              <tr >
+                <th v-for="header in headers" scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                  <a @:click="sortTableData(header, 'desc')" href="#" class="group inline-flex">
+                    {{header}}
+                    <!-- Active: "bg-gray-200 text-gray-900 group-hover:bg-gray-300", Not Active: "invisible text-gray-400 group-hover:visible group-focus:visible" -->
+                    <span class="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                      <!-- Heroicon name: mini/chevron-down -->
+                      <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                      </svg>
+                    </span>
+                  </a>
+                </th>
+              </tr>
             </thead>
 
             <tbody class="divide-y divide-gray-200 bg-white">
-              <% data.each do |row| %>
-                <tr>
-                  <% row.values.each do |col| %>
-                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= col %></td>
-                  <% end %>
-                </tr>
-              <% end %>
+              <tr v-for="row in table_data">
+                <td v-for="col in Object.values(row)" class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{col}}</td>
+              </tr>
             </tbody>
           </table>
 
@@ -29,3 +34,64 @@
     </div>
   </div>
 </div>
+
+
+
+<script>
+    // USES VUE FOR SORTING
+    // function sortTableData(data, key, order) {
+    //     // data is an array of "col#" hashes, which we want to sort asc/desc by "key"
+    //     let sorted_data = _.sortBy(data, key)
+    //
+    //     if (order === "asc") {
+    //         return sorted_data
+    //     }
+    //     else if (order === "desc")
+    //     {
+    //         return sorted_data.reverse()
+    //     }
+    // }
+    // gon.table_data = sortTableData(gon.table_data, "latd", "asc")
+    // console.log(gon.table_data)
+    const { createApp } = Vue
+
+    createApp({
+        data() {
+            return {
+                table_data: gon.table_data,
+                headers: Object.keys(gon.table_data[0]),
+                active_sort_direction: "desc",
+                active_sort_heading: null,
+            }
+        },
+        methods: {
+            sortTableData(key) {
+                // data is an array of "col#" hashes, which we want to sort asc/desc by "key"
+                let td = _.sortBy(this.table_data, key)
+
+                // if we sorted by this col last time, sort the other way (asc/desc)
+                if (this.active_sort_heading !== key) {
+                    this.active_sort_heading = key
+                    this.active_sort_direction = "desc"
+                } else {
+                    this.active_sort_direction === "desc" ? this.active_sort_direction = "asc" : this.active_sort_direction = "desc"
+                }
+
+                this.active_sort_direction === "asc" ? td.reverse() : td
+                console.log(td)
+                this.table_data = td
+
+
+                // if (order === "asc") {
+                //      this.table_data = sorted_data
+                // }
+                // else if (order === "desc")
+                // {
+                //     this.table_data = sorted_data.reverse()
+                // }
+            }
+        }
+    }).mount("#data-table")
+
+    console.log("mounted vue app")
+</script>
