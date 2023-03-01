@@ -2,12 +2,14 @@
 #
 # Table name: datasets
 #
-#  id         :bigint           not null, primary key
-#  name       :string
-#  price      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  id                :bigint           not null, primary key
+#  name              :string
+#  price             :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  stripe_price_id   :string
+#  stripe_product_id :string
+#  user_id           :bigint           not null
 #
 # Indexes
 #
