@@ -25,19 +25,6 @@ class DatasetsController < ApplicationController
   def edit
   end
 
-  def create_checkout_session
-    # Stripe::Checkout::Session.create(
-    #   {
-    #     mode: 'payment',
-    #     line_items: [{price: '{{PRICE_ID}}', quantity: 1}],
-    #     payment_intent_data: {application_fee_amount: 123},
-    #     success_url: 'https://example.com/success',
-    #     cancel_url: 'https://example.com/cancel',
-    #   },
-    #   {stripe_account: '{{CONNECTED_ACCOUNT_ID}}'},
-    #   )
-  end
-
   # POST /datasets or /datasets.json
   def create
     @dataset = current_user.datasets.create(dataset_params)

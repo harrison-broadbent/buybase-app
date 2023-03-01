@@ -4,12 +4,18 @@
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
-    <%= render @user %>
+    <h1 class="p-4 font-bold text-2xl">Profile</h1>
 
-    <%= link_to 'Edit this user', edit_user_path(@user), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this user', user_path(@user), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    <div class="border border-gray-200 p-2">
+      <p>Name: <%= @user.name %></p>
     </div>
-    <%= link_to 'Back to users', users_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+
+      <div class="border border-gray-200 p-2 bg-gray-100 hover:bg-gray-200">
+        <% if !@user.stripe_connected_account_success %>
+          <%= link_to "Connect your Stripe account ->", @account_link %>
+        <% else %>
+          <p>Stripe account connected ✓</p>
+        <% end %>
+      </div>
   </div>
 </div>

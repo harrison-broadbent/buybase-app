@@ -9,6 +9,17 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @account_link = current_user.stripe_generate_new_account_link.url
+
+  #   check if stripe flow worked
+    if current_user.stripe_connected_account_success == false
+      account = current_user.stripe_get_account
+      if account.charges_enabled == true
+        # stripe flow worked
+        current_user.stripe_connected_account_success = true
+        current_user.save
+      end
+    end
   end
 
   # GET /users/new
