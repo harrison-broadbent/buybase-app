@@ -79,7 +79,6 @@ group :test do
   gem "simplecov"
 end
 
-
 gem "devise"
 gem "tailwindcss-rails", "~> 2.0"
 gem 'foreman'
@@ -88,6 +87,8 @@ gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem 'csv', '~> 3.0'
 gem 'smarter_csv'
 gem "roo", "~> 2.9.0"
-gem 'gon'
 gem 'stripe'
+gem 'gon'       # send controller params into views
+gem 'haikunator' # generate pretty access codes
+
 

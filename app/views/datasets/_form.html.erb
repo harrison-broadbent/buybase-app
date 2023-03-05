@@ -17,6 +17,16 @@
   </div>
 
   <div class="my-5">
+    <%= form.label :price %>
+    <% if current_user.stripe_connected_account_success %>
+      <%= form.number_field :price, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <% else %>
+      <p>Setup and connect your Stripe account to enable selling</p>
+      <%= link_to "Visit your profile", user_path(current_user.id) %>
+    <% end %>
+  </div>
+
+  <div class="my-5">
     <%= form.label :file %>
     <%= form.file_field :file, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>

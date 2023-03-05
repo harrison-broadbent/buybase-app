@@ -4,19 +4,21 @@
 #
 # Table name: users
 #
-#  id                     :bigint           not null, primary key
-#  email                  :string           default(""), not null
-#  encrypted_password     :string           default(""), not null
-#  image                  :string
-#  name                   :string
-#  provider               :string
-#  remember_created_at    :datetime
-#  reset_password_sent_at :datetime
-#  reset_password_token   :string
-#  uid                    :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  connected_account_id   :string
+#  id                               :bigint           not null, primary key
+#  email                            :string           default(""), not null
+#  encrypted_password               :string           default(""), not null
+#  image                            :string
+#  name                             :string
+#  provider                         :string
+#  remember_created_at              :datetime
+#  reset_password_sent_at           :datetime
+#  reset_password_token             :string
+#  stripe_checkout_percentage_fee   :float
+#  stripe_connected_account_success :boolean
+#  uid                              :string
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
+#  connected_account_id             :string
 #
 # Indexes
 #
@@ -31,18 +33,40 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[github google_oauth2]
 
   has_many :datasets, dependent: :destroy
+  has_many :data_codes, dependent: :destroy
 
-  after_create :create_connected_id
+  after_create :stripe_create_connected_account
 
-  # Stripe methods
-  def create_connected_id
+  ### Stripe methods ##
+  def stripe_create_connected_account
     # create stripe connected account for the user
     Stripe.api_key = Rails.application.credentials.stripe[:api_key]
     acc = Stripe::Account.create({type: 'standard'})
-    puts acc.id, @user
+
     self.connected_account_id = acc.id
+    self.stripe_connected_account_success = false
+
     self.save
   end
+
+  def stripe_generate_new_account_link
+    Stripe.api_key = Rails.application.credentials.stripe[:api_key]
+    account_link = Stripe::AccountLink.create({
+                                                account: self.connected_account_id,
+                                                refresh_url: "http://localhost:3000",
+                                                return_url: "http://localhost:3000/users/#{self.id}",
+                                                type:"account_onboarding"
+                                              })
+    return account_link
+  end
+
+  def stripe_get_account
+    Stripe.api_key = Rails.application.credentials.stripe[:api_key]
+    account = Stripe::Account.retrieve(self.connected_account_id)
+    return account
+  end
+
+  ###
 
   # Devise methods
   def self.from_omniauth(auth)

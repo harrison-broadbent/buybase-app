@@ -14,6 +14,8 @@ class DatasetsController < ApplicationController
       @data = SmarterCSV.process(file)
       gon.table_data = @data
     end
+
+    @checkout_url = @dataset.stripe_create_checkout_session
   end
 
   # GET /datasets/new
@@ -23,19 +25,6 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1/edit
   def edit
-  end
-
-  def create_checkout_session
-    # Stripe::Checkout::Session.create(
-    #   {
-    #     mode: 'payment',
-    #     line_items: [{price: '{{PRICE_ID}}', quantity: 1}],
-    #     payment_intent_data: {application_fee_amount: 123},
-    #     success_url: 'https://example.com/success',
-    #     cancel_url: 'https://example.com/cancel',
-    #   },
-    #   {stripe_account: '{{CONNECTED_ACCOUNT_ID}}'},
-    #   )
   end
 
   # POST /datasets or /datasets.json
@@ -84,6 +73,6 @@ class DatasetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dataset_params
-      params.require(:dataset).permit(:name, :file)
+      params.require(:dataset).permit(:name, :file, :price)
     end
 end
