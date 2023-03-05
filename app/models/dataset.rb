@@ -21,6 +21,7 @@
 class Dataset < ApplicationRecord
   belongs_to :user
   has_one_attached :file, dependent: :destroy
+  has_many :data_codes, dependent: :destroy
 
   after_create :stripe_create_dataset_product
 
@@ -49,7 +50,7 @@ class Dataset < ApplicationRecord
                                        line_items: [{price: self.stripe_price_id, quantity: 1}],
                                        # take a percentage fee of each transaction
                                        payment_intent_data: {application_fee_amount: ((self.price.to_f * self.user.stripe_checkout_percentage_fee) * 100).to_i},
-                                       success_url: "http://localhost:3000/datasets/#{self.id}",
+                                       success_url: "http://localhost:3000/checkout_success?session_id={CHECKOUT_SESSION_ID}&user_id=#{self.user.id}&dataset_id=#{self.id}",
                                        cancel_url: "http://localhost:3000/datasets/#{self.id}"
                                      },
                                      {stripe_account: self.user.connected_account_id}

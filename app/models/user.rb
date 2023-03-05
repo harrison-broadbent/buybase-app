@@ -33,6 +33,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[github google_oauth2]
 
   has_many :datasets, dependent: :destroy
+  has_many :data_codes, dependent: :destroy
 
   after_create :stripe_create_connected_account
 

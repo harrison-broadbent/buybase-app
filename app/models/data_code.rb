@@ -23,4 +23,10 @@
 class DataCode < ApplicationRecord
   belongs_to :user
   belongs_to :dataset
+
+  after_create :email_access_code_to_customer
+
+  def email_access_code_to_customer
+    puts "MOCK: email access code (#{self.code}) to customer"
+  end
 end
