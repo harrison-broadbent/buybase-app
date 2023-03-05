@@ -14,6 +14,8 @@ class DatasetsController < ApplicationController
       @data = SmarterCSV.process(file)
       gon.table_data = @data
     end
+
+    @checkout_url = @dataset.stripe_create_checkout_session
   end
 
   # GET /datasets/new

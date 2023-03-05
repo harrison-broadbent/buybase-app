@@ -1,0 +1,2 @@
+class DataCodesController < ApplicationController
+end
