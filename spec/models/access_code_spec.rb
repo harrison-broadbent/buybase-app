@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: data_codes
+# Table name: access_codes
 #
 #  id             :bigint           not null, primary key
 #  code           :string
@@ -12,8 +12,8 @@
 #
 # Indexes
 #
-#  index_data_codes_on_dataset_id  (dataset_id)
-#  index_data_codes_on_user_id     (user_id)
+#  index_access_codes_on_dataset_id  (dataset_id)
+#  index_access_codes_on_user_id     (user_id)
 #
 # Foreign Keys
 #
@@ -22,6 +22,6 @@
 #
 require 'rails_helper'
 
-RSpec.describe DataCode, type: :model do
+RSpec.describe AccessCode, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

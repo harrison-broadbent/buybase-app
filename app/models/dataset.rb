@@ -21,7 +21,7 @@
 class Dataset < ApplicationRecord
   belongs_to :user
   has_one_attached :file, dependent: :destroy
-  has_many :data_codes, dependent: :destroy
+  has_many :access_codes, dependent: :destroy
 
   after_create :stripe_create_dataset_product
 
@@ -56,6 +56,12 @@ class Dataset < ApplicationRecord
                                      {stripe_account: self.user.connected_account_id}
     )
     return session.url
+  end
+
+  def access_code_is_valid?(access_code)
+    access_codes = AccessCode.where(code: access_code).pluck(:id)
+    # if the intersection of access_codes and self.access_code_ids is not empty, the code is valid
+    return (self.access_code_ids & access_codes).present?
   end
 
 end
