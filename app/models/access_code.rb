@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: data_codes
+# Table name: access_codes
 #
 #  id             :bigint           not null, primary key
 #  code           :string
@@ -12,15 +12,15 @@
 #
 # Indexes
 #
-#  index_data_codes_on_dataset_id  (dataset_id)
-#  index_data_codes_on_user_id     (user_id)
+#  index_access_codes_on_dataset_id  (dataset_id)
+#  index_access_codes_on_user_id     (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (dataset_id => datasets.id)
 #  fk_rails_...  (user_id => users.id)
 #
-class DataCode < ApplicationRecord
+class AccessCode < ApplicationRecord
   belongs_to :user
   belongs_to :dataset
 

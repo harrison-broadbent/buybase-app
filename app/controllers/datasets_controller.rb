@@ -10,12 +10,15 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1 or /datasets/1.json
   def show
-    @dataset.file.open do |file|
-      @data = SmarterCSV.process(file)
-      gon.table_data = @data
+    @customer_code_valid = @dataset.access_code_is_valid?(params[:customer_access_code])
+    if @customer_code_valid
+      @dataset.file.open do |file|
+        @data = SmarterCSV.process(file)
+        gon.table_data = @data
+      end
+    else
+      @checkout_url = @dataset.stripe_create_checkout_session
     end
-
-    @checkout_url = @dataset.stripe_create_checkout_session
   end
 
   # GET /datasets/new
@@ -73,6 +76,6 @@ class DatasetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dataset_params
-      params.require(:dataset).permit(:name, :file, :price)
+      params.require(:dataset).permit(:name, :file, :price, :customer_access_code)
     end
 end
