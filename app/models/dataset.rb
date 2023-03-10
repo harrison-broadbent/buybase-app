@@ -26,6 +26,9 @@ class Dataset < ApplicationRecord
   has_one_attached :file, dependent: :destroy
   has_many :access_codes, dependent: :destroy
 
+  validates_presence_of :dataset_type
+  validates_presence_of :database_url, if: -> {':airtable?' || ':notion?'}
+
   after_create :stripe_create_dataset_product
 
   enum :dataset_type => { spreadsheet: 0, airtable: 1, notion: 2 }
