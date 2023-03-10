@@ -28,7 +28,8 @@
 
   <div class="my-5">
     <%= form.label :dataset_type %>
-    <%= select_tag(:dataset_type, options_for_select(Dataset.dataset_types)) %>
+    <%= form.select :dataset_type, Dataset.dataset_types.map { |k,v| [k.humanize, k]} %>
+    <%#= select_tag(:dataset_type, options_for_select(Dataset.dataset_types, params[:dataset_type].to_i)) %>
   </div>
 
   <div class="my-5">
