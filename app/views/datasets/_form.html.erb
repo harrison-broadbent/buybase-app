@@ -27,6 +27,16 @@
   </div>
 
   <div class="my-5">
+    <%= form.label :dataset_type %>
+    <%= select_tag(:dataset_type, options_for_select(Dataset.dataset_types)) %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :database_url %>
+    <%= form.text_field :database_url, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
     <%= form.label :file %>
     <%= form.file_field :file, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
