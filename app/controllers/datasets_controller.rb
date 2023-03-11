@@ -12,9 +12,14 @@ class DatasetsController < ApplicationController
   def show
     @customer_code_valid = @dataset.access_code_is_valid?(params[:customer_access_code]) || current_user.id == @dataset.user.id
     if @customer_code_valid
-      @dataset.file.open do |file|
-        @data = SmarterCSV.process(file)
-        gon.table_data = @data
+      if @dataset.spreadsheet?
+        @dataset.file.open do |file|
+          @data = SmarterCSV.process(file)
+          gon.table_data = @data
+        end
+      elsif @dataset.airtable?
+        airtable_code = @dataset.database_url.split("?")[0].split("/").last
+        @airtable_url = "https://airtable.com/embed/#{airtable_code}?backgroundColor=purple"
       end
     else
       @checkout_url = @dataset.stripe_create_checkout_session

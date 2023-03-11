@@ -9,6 +9,13 @@
   </div>
 
   <div id="datasets" class="min-w-full">
-    <%= render @datasets %>
+    <% @datasets.each do |dataset| %>
+      <%= link_to dataset_path(dataset) do %>
+        <div class="border p-2 m-2">
+          <p><%= dataset.name %></p>
+          <p><%= dataset.dataset_type %></p>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
