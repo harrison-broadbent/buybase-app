@@ -3,6 +3,8 @@
 # Table name: datasets
 #
 #  id                :bigint           not null, primary key
+#  database_url      :string
+#  dataset_type      :integer
 #  name              :string
 #  price             :string
 #  created_at        :datetime         not null
