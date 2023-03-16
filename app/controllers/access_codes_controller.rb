@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AccessCodesController < ApplicationController
   before_action :set_user, :set_dataset, only: :new
   def new
@@ -9,7 +10,7 @@ class AccessCodesController < ApplicationController
     @access_code = AccessCode.create(code: Haikunator.haikunate, customer_email: customer.email, user_id: params[:user_id], dataset_id: params[:dataset_id])
     @access_code.save
 
-  #   TODO: handle edge cases - ie multuple purchases, reloading etc
+    #   TODO: handle edge cases - ie multuple purchases, reloading etc
   end
 
   private

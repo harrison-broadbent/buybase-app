@@ -10,7 +10,7 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1 or /datasets/1.json
   def show
-    @customer_code_valid = @dataset.access_code_is_valid?(params[:customer_access_code]) || current_user.id == @dataset.user.id
+    @customer_code_valid = @dataset.access_code_is_valid?(params[:customer_access_code]) || (current_user.id == @dataset.user.id unless current_user == nil)
     if @customer_code_valid
       if @dataset.spreadsheet?
         @dataset.file.open do |file|
@@ -18,8 +18,11 @@ class DatasetsController < ApplicationController
           gon.table_data = @data
         end
       elsif @dataset.airtable?
-        airtable_code = @dataset.database_url.split("?")[0].split("/").last
+        airtable_code = @dataset.database_url.split('?')[0].split('/').last
         @airtable_url = "https://airtable.com/embed/#{airtable_code}?backgroundColor=purple"
+      elsif @dataset.notion?
+        notion_code = @dataset.database_url.split('?')[0].split('/').last
+        @notion_url = "https://react-notion-x-demo.transitivebullsh.it/#{notion_code}"
       end
     else
       @checkout_url = @dataset.stripe_create_checkout_session
@@ -43,7 +46,7 @@ class DatasetsController < ApplicationController
 
     respond_to do |format|
       if @dataset.save
-        format.html { redirect_to dataset_url(@dataset), notice: "Dataset was successfully created." }
+        format.html { redirect_to dataset_url(@dataset), notice: 'Dataset was successfully created.' }
         format.json { render :show, status: :created, location: @dataset }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -56,7 +59,7 @@ class DatasetsController < ApplicationController
   def update
     respond_to do |format|
       if @dataset.update(dataset_params)
-        format.html { redirect_to dataset_url(@dataset), notice: "Dataset was successfully updated." }
+        format.html { redirect_to dataset_url(@dataset), notice: 'Dataset was successfully updated.' }
         format.json { render :show, status: :ok, location: @dataset }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -70,7 +73,7 @@ class DatasetsController < ApplicationController
     @dataset.destroy
 
     respond_to do |format|
-      format.html { redirect_to datasets_url, notice: "Dataset was successfully destroyed." }
+      format.html { redirect_to datasets_url, notice: 'Dataset was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
