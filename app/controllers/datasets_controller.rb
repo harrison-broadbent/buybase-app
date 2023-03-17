@@ -5,11 +5,12 @@ class DatasetsController < ApplicationController
 
   # GET /datasets or /datasets.json
   def index
-    @datasets = Dataset.all
+    @datasets = current_user.datasets.all
   end
 
   # GET /datasets/1 or /datasets/1.json
   def show
+    # show if the customer code is valid, or if the current user owns the dataset
     @customer_code_valid = @dataset.access_code_is_valid?(params[:customer_access_code]) || (current_user.id == @dataset.user.id unless current_user == nil)
     if @customer_code_valid
       if @dataset.spreadsheet?

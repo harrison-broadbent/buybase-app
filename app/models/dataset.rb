@@ -27,11 +27,11 @@ class Dataset < ApplicationRecord
   has_many :access_codes, dependent: :destroy
 
   validates_presence_of :dataset_type
-  validates_presence_of :database_url, if: -> {':airtable?' || ':notion?'}
+  validates_presence_of :database_url, unless: :spreadsheet?
 
   after_create :stripe_create_dataset_product
 
-  enum :dataset_type => { spreadsheet: 0, airtable: 1, notion: 2 }
+  enum dataset_type: { spreadsheet: 0, airtable: 1, notion: 2 }
 
   # create corresponding stripe product and price
   def stripe_create_dataset_product
