@@ -37,6 +37,7 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1/edit
   def edit
+    gon.dataset_type = @dataset.dataset_type
   end
 
   # POST /datasets or /datasets.json
@@ -80,13 +81,13 @@ class DatasetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_dataset
-      @dataset = Dataset.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_dataset
+    @dataset = Dataset.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def dataset_params
-      params.require(:dataset).permit(:name, :file, :price, :customer_access_code, :database_url, :dataset_type)
-    end
+  # Only allow a list of trusted parameters through.
+  def dataset_params
+    params.require(:dataset).permit(:name, :file, :price, :customer_access_code, :database_url, :dataset_type)
+  end
 end

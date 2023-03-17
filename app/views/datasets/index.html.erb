@@ -39,11 +39,11 @@
               <p class="truncate text-md font-medium text-gray-900"><%= dataset.name %></p>
               <p class="truncate text-sm text-gray-500">Created: <%= time_ago_in_words(dataset.created_at)%> ago</p>
             </div>
-            <div class="space-x-1 flex flex-row">
-              <%= button_to dataset_path(dataset), class: "inline-flex items-center rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+            <div class="space-x-1 ">
+              <%= link_to dataset_path(dataset), class: "inline-flex items-center rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
                 View
               <% end %>
-              <%= button_to edit_dataset_path(dataset), method: :get, class: "inline-flex items-center rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+              <%= link_to edit_dataset_path(dataset), class: "inline-flex items-center rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
                 Edit
               <% end %>
               <%#= button_to dataset_path(dataset), method: :delete, class: "inline-flex items-center rounded-md bg-red-50 px-2.5 py-1 text-sm font-semibold text-red-900 shadow-sm ring-1 ring-inset ring-red-200 hover:bg-red-100" do %>

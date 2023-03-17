@@ -7,7 +7,7 @@
     <!--    Scripts-->
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://unpkg.com/vue-click-outside@1.1.0/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-clickaway@2.2.2/dist/vue-clickaway.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.6/underscore-umd-min.js"></script>
     <%= include_gon(:init => true, :need_type => true) %>
 
@@ -202,7 +202,7 @@
               </button>
               <div class="flex flex-1 justify-end px-4 lg:px-0">
                 <% if current_user %>
-                <div class="ml-4 flex items-center lg:ml-6">
+                <div v-click-away="closeMenu" class="ml-4 flex items-center lg:ml-6">
 <!--                  <button type="button" class="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">-->
 <!--                    <span class="sr-only">View notifications</span>-->
 <!--                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">-->
@@ -255,44 +255,3 @@
     </div>
   </body>
 </html>
-<script>
-    const { createApp } = Vue
-
-    createApp({
-        data() {
-            return {
-                // application menu
-                showMenu: false,
-                // edit/create
-                selectedDataType: null,
-                showFileField: false,
-                showURLField: false
-            }
-        },
-        methods: {
-            toggleShowMenu() {
-                this.showMenu = !this.showMenu
-            },
-            closeMenu() {
-                this.showMenu = false
-            },
-            handleSelectChange() {
-                console.log("handling change")
-                let selectBox = document.getElementById("dataset_dataset_type")
-                this.selectedDataType = selectBox.value
-
-                if (this.selectedDataType == "spreadsheet") {
-                    this.showFileField = true
-                    this.showURLField = false
-                } else if (this.selectedDataType == "airtable" || this.selectedDataType == "notion") {
-                    this.showFileField = false
-                    this.showURLField = true
-                }
-                console.log(this.selectedDataType, this.showFileField, this.showURLField)
-            }
-        }
-    }).mount("#application")
-
-    console.log("mounted application vue app")
-</script>
-
