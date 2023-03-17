@@ -43,7 +43,7 @@
               <%= button_to dataset_path(dataset), class: "inline-flex items-center rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
                 View
               <% end %>
-              <%= button_to edit_dataset_path(dataset), class: "inline-flex items-center rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+              <%= button_to edit_dataset_path(dataset), method: :get, class: "inline-flex items-center rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
                 Edit
               <% end %>
               <%#= button_to dataset_path(dataset), method: :delete, class: "inline-flex items-center rounded-md bg-red-50 px-2.5 py-1 text-sm font-semibold text-red-900 shadow-sm ring-1 ring-inset ring-red-200 hover:bg-red-100" do %>

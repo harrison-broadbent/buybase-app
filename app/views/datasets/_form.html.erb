@@ -46,37 +46,37 @@
   </div>
 <% end %>
 
-<script>
+<!--<script>-->
 
-    const { createApp } = Vue
+<!--    var { createApp } = Vue-->
 
-    createApp({
-        data() {
-            return {
-                // selectBox: document.getElementById("dataset_dataset_type"),
-                selectedDataType: null,
-                showFileField: false,
-                showURLField: false
-            }
-        },
-        methods: {
-            handleSelectChange() {
-                console.log("handling change")
-                let selectBox = document.getElementById("dataset_dataset_type")
-                this.selectedDataType = selectBox.value
+<!--    createApp({-->
+<!--        data() {-->
+<!--            return {-->
+<!--                // selectBox: document.getElementById("dataset_dataset_type"),-->
+<!--                selectedDataType: null,-->
+<!--                showFileField: false,-->
+<!--                showURLField: false-->
+<!--            }-->
+<!--        },-->
+<!--        methods: {-->
+<!--            handleSelectChange() {-->
+<!--                console.log("handling change")-->
+<!--                let selectBox = document.getElementById("dataset_dataset_type")-->
+<!--                this.selectedDataType = selectBox.value-->
 
-                if (this.selectedDataType == "spreadsheet") {
-                    this.showFileField = true
-                    this.showURLField = false
-                } else if (this.selectedDataType == "airtable" || this.selectedDataType == "notion") {
-                    this.showFileField = false
-                    this.showURLField = true
-                }
-                console.log(this.selectedDataType, this.showFileField, this.showURLField)
-            }
-        }
-    }).mount("#new-dataset-form")
+<!--                if (this.selectedDataType == "spreadsheet") {-->
+<!--                    this.showFileField = true-->
+<!--                    this.showURLField = false-->
+<!--                } else if (this.selectedDataType == "airtable" || this.selectedDataType == "notion") {-->
+<!--                    this.showFileField = false-->
+<!--                    this.showURLField = true-->
+<!--                }-->
+<!--                console.log(this.selectedDataType, this.showFileField, this.showURLField)-->
+<!--            }-->
+<!--        }-->
+<!--    }).mount("#new-dataset-form")-->
 
-    console.log("mounted vue app")
+<!--    console.log("mounted dataset form vue app")-->
 
-</script>
+<!--</script>-->
