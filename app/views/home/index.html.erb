@@ -1,7 +1,6 @@
 <div>
-  <h1 class="font-bold text-4xl">Datamic — Homepage</h1>
   <% if current_user %>
-    <%= link_to current_user.name, user_path(current_user) %>
+    <%= link_to current_user.name, user_path %>
     <h3><%= current_user.email %></h3>
     <%= image_tag(current_user.image) unless current_user.image.nil? %>
     <%= button_to "Sign out", destroy_user_session_path, :method => :delete %>

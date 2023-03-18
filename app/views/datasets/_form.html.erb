@@ -1,25 +1,17 @@
-<%= form_with(model: dataset, class: "space-y-8 divide-y divide-gray-200", id: "new-dataset-form") do |form| %>
+<%= form_with(model: dataset, class: "space-y-8 divide-gray-200", id: "dataset-form") do |form| %>
   <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
     <div class="space-y-6 sm:space-y-5">
-      <div>
-        <h3 class="text-base font-semibold leading-6 text-gray-900">Dataset</h3>
-        <p class="mt-1 max-w-2xl text-sm text-gray-500">This information will be displayed publicly so be careful what you share.</p>
-      </div>
       <% if dataset.errors.any? %>
-        <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-          <h2><%= pluralize(dataset.errors.count, "error") %> prohibited this dataset from being saved:</h2>
-
+        <div id="error_explanation" class="bg-red-50 text-red-500 p-1 font-medium rounded-lg mt-3">
           <ul>
-            <% dataset.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
+            <%= render 'layouts/form_alert', errors: dataset.errors %>
           </ul>
         </div>
       <% end %>
       <div class="space-y-6 pt-8 sm:space-y-5 sm:pt-10">
         <div>
           <h3 class="text-base font-semibold leading-6 text-gray-900">Basic Information</h3>
-          <p class="mt-1 max-w-2xl text-sm text-gray-500">Use a permanent address where you can receive mail.</p>
+          <p class="mt-1 max-w-2xl text-sm text-gray-500">Basic information about your dataset</p>
         </div>
         <div class="space-y-6 sm:space-y-5">
           <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
@@ -32,10 +24,10 @@
             <%= form.label :price, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
             <div class="mt-2 sm:col-span-2 sm:mt-0">
               <% if current_user.stripe_connected_account_success %>
-                <%= form.number_field :price, class: "block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                <%= form.number_field :price, disabled: !form.object.new_record?, class: "block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
               <% else %>
                 <p>Setup and connect your Stripe account to enable selling</p>
-                <%= link_to "Visit your profile", user_path(current_user.id) %>
+                <%= link_to "Visit your profile", user_path %>
               <% end %>
             </div>
           </div>
@@ -45,7 +37,7 @@
       <div class="space-y-6 pt-8 sm:space-y-5 sm:pt-10">
         <div>
           <h3 class="text-base font-semibold leading-6 text-gray-900">Database Information</h3>
-          <p class="mt-1 max-w-2xl text-sm text-gray-500">Use a permanent address where you can receive mail.</p>
+          <p class="mt-1 max-w-2xl text-sm text-gray-500">Information about the data source you're using</p>
         </div>
         <div class="space-y-6 sm:space-y-5">
           <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">

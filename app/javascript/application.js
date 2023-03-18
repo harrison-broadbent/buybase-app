@@ -37,3 +37,23 @@ createApp({
 }).mount("#application")
 
 console.log("mounted application vue app")
+
+// datasets/show
+// Copies the page URL to the clipboard when btn is clicked
+
+let datasetURL = document.location.href;
+let shareBtn = document.getElementById("copy-url-btn")
+
+new ClipboardJS(shareBtn, {
+    text: function() {
+        return datasetURL;
+    }
+});
+
+shareBtn.addEventListener("click", function () {
+    shareBtn.lastChild.innerText = "Copied link!"
+})
+
+shareBtn.addEventListener("mouseout", function () {
+    shareBtn.lastChild.innerText = "Share"
+})

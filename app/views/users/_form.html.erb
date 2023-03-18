@@ -4,9 +4,7 @@
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
       <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
+        <%= render 'layouts/form_alert', errors: dataset.errors %>
       </ul>
     </div>
   <% end %>

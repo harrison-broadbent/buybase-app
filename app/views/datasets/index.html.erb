@@ -1,8 +1,4 @@
 <div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
   <div class="md:flex md:items-center md:justify-between">
     <div class="min-w-0 flex-1">
       <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
@@ -37,7 +33,7 @@
             </div>
             <div class="min-w-0 flex-1">
               <p class="truncate text-md font-medium text-gray-900"><%= dataset.name %></p>
-              <p class="truncate text-sm text-gray-500">Created: <%= time_ago_in_words(dataset.created_at)%> ago</p>
+              <p class="truncate text-sm text-gray-500">Purchased: <%= dataset.access_codes.count%> times</p>
             </div>
             <div class="space-x-1 ">
               <%= link_to dataset_path(dataset), class: "inline-flex items-center rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
