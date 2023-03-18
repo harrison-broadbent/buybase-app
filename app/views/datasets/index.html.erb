@@ -16,40 +16,49 @@
   </div>
 
   <div class="mt-16 flow-root mx-auto">
-    <ul role="list" class="-my-5 divide-y divide-gray-200">
-      <% @datasets.each do |dataset| %>
-       <li class="py-4">
-          <div class="flex items-center space-x-4">
-            <div class="flex-shrink-0">
-              <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-gray-100">
-                <% if dataset.notion? %>
-                  <img class="h-6 w-6" src="https://img.icons8.com/ios/64/notion.png" alt="">
-                <% elsif dataset.airtable? %>
-                  <img class="h-6 w-6" src="https://img.icons8.com/ios/64/airtable.png" alt="">
-                <% elsif dataset.spreadsheet? %>
-                  <img class="h-6 w-6" src="https://img.icons8.com/ios/64/year-view.png" alt="">
+    <% if @datasets.count > 0 %>
+      <ul role="list" class="-my-5 divide-y divide-gray-200">
+        <% @datasets.each do |dataset| %>
+         <li class="py-4">
+            <div class="flex items-center space-x-4">
+              <div class="flex-shrink-0">
+                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-gray-100">
+                  <% if dataset.notion? %>
+                    <img class="h-6 w-6" src="https://img.icons8.com/ios/64/notion.png" alt="">
+                  <% elsif dataset.airtable? %>
+                    <img class="h-6 w-6" src="https://img.icons8.com/ios/64/airtable.png" alt="">
+                  <% elsif dataset.spreadsheet? %>
+                    <img class="h-6 w-6" src="https://img.icons8.com/ios/64/year-view.png" alt="">
+                  <% end %>
+                </div>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="truncate text-md font-medium text-gray-900"><%= dataset.name %></p>
+                <p class="truncate text-sm text-gray-500">Purchased: <%= dataset.access_codes.count%> times</p>
+              </div>
+              <div class="space-x-1 ">
+                <%= link_to dataset_path(dataset), class: "inline-flex items-center rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+                  View
                 <% end %>
+                <%= link_to edit_dataset_path(dataset), class: "inline-flex items-center rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+                  Edit
+                <% end %>
+                <%#= button_to dataset_path(dataset), method: :delete, class: "inline-flex items-center rounded-md bg-red-50 px-2.5 py-1 text-sm font-semibold text-red-900 shadow-sm ring-1 ring-inset ring-red-200 hover:bg-red-100" do %>
+  <!--                Delete-->
+                <%# end %>
               </div>
             </div>
-            <div class="min-w-0 flex-1">
-              <p class="truncate text-md font-medium text-gray-900"><%= dataset.name %></p>
-              <p class="truncate text-sm text-gray-500">Purchased: <%= dataset.access_codes.count%> times</p>
-            </div>
-            <div class="space-x-1 ">
-              <%= link_to dataset_path(dataset), class: "inline-flex items-center rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
-                View
-              <% end %>
-              <%= link_to edit_dataset_path(dataset), class: "inline-flex items-center rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
-                Edit
-              <% end %>
-              <%#= button_to dataset_path(dataset), method: :delete, class: "inline-flex items-center rounded-md bg-red-50 px-2.5 py-1 text-sm font-semibold text-red-900 shadow-sm ring-1 ring-inset ring-red-200 hover:bg-red-100" do %>
-<!--                Delete-->
-              <%# end %>
-            </div>
-          </div>
-        </li>
-      <% end %>
-    </ul>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <%= link_to new_dataset_path, class: "relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" do %>
+        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v20c0 4.418 7.163 8 16 8 1.381 0 2.721-.087 4-.252M8 14c0 4.418 7.163 8 16 8s16-3.582 16-8M8 14c0-4.418 7.163-8 16-8s16 3.582 16 8m0 0v14m0-4c0 4.418-7.163 8-16 8S8 28.418 8 24m32 10v6m0 0v6m0-6h6m-6 0h-6" />
+        </svg>
+        <span class="mt-2 block text-sm font-semibold text-gray-900">Add a new dataset</span>
+        <% end %>
+  <% end %>
   </div>
 
 </div>
