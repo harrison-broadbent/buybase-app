@@ -21,7 +21,13 @@
   <% if @dataset.spreadsheet? && @data %>
     <%= render 'datasets/data_table', data: @data %>
   <% elsif @dataset.airtable?  %>
-    <iframe src="<%= @airtable_url %>" class="w-full h-[75vh] rounded-md shadow-lg" ></iframe>
+    <div class="w-full h-[75vh] rounded-md shadow-lg">
+<!--      <div class="rounded-t-md w-full p-1 bg-indigo-600 text-sm text-gray-700 flex flex-row items-center">-->
+<!--        <img class="h-4 w-4 ml-2 mr-2" src="https://img.icons8.com/ios/64/airtable.png" alt="">-->
+<!--        Airtable-->
+<!--      </div>-->
+      <iframe src="<%= @airtable_url %>" class="w-full h-full"></iframe>
+    </div>
   <% elsif @dataset.notion? %>
     <iframe src="<%= @notion_url %>" class="w-full h-[75vh] rounded-md shadow-lg"></iframe>
   <% end %>

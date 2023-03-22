@@ -1,7 +1,7 @@
 require 'roo'
 
 class DatasetsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[show]
   before_action :set_dataset, only: %i[ show edit update destroy ]
 
   # GET /datasets or /datasets.json

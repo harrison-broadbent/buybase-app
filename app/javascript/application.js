@@ -44,16 +44,13 @@ console.log("mounted application vue app")
 let datasetURL = document.location.href;
 let shareBtn = document.getElementById("copy-url-btn")
 
-new ClipboardJS(shareBtn, {
+let clipboard = new ClipboardJS(shareBtn, {
     text: function() {
         return datasetURL;
     }
 });
 
-shareBtn.addEventListener("click", function () {
-    shareBtn.lastChild.innerText = "Copied link!"
-})
-
-shareBtn.addEventListener("mouseout", function () {
-    shareBtn.lastChild.innerText = "Share"
-})
+clipboard.on('success', function(e) {
+    e.trigger.lastChild.innerText = 'Copied link!'
+    setTimeout(() => e.trigger.lastChild.innerText = "Share", 1000)
+});
