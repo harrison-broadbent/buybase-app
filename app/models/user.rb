@@ -45,6 +45,7 @@ class User < ApplicationRecord
 
     self.connected_account_id = acc.id
     self.stripe_connected_account_success = false
+    self.stripe_checkout_percentage_fee = 0.05 # 5% application fee applied to all purchases
 
     self.save
   end
