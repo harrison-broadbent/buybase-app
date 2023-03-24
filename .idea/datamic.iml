@@ -63,6 +63,7 @@
     <orderEntry type="library" scope="PROVIDED" name="foreman (v0.87.2, rbenv: 3.2.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v1.1.0, rbenv: 3.2.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="gon (v6.4.0, rbenv: 3.2.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="haikunator (v1.1.1, rbenv: 3.2.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hashie (v5.0.0, rbenv: 3.2.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v1.12.0, rbenv: 3.2.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="importmap-rails (v1.1.5, rbenv: 3.2.0) [gem]" level="application" />

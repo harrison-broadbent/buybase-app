@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: datamic_production
-  username: datamic
-  password: <%= ENV["DATAMIC_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
