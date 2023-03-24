@@ -1,6 +1,7 @@
 require 'roo'
 
 class DatasetsController < ApplicationController
+  before_action :authenticate_user!, except: %i[show]
   before_action :set_dataset, only: %i[ show edit update destroy ]
 
   # GET /datasets or /datasets.json
@@ -11,8 +12,11 @@ class DatasetsController < ApplicationController
   # GET /datasets/1 or /datasets/1.json
   def show
     # show if the customer code is valid, or if the current user owns the dataset
-    @customer_code_valid = @dataset.access_code_is_valid?(params[:customer_access_code]) || (current_user.id == @dataset.user.id unless current_user == nil)
-    if @customer_code_valid
+    customer_code_valid = @dataset.access_code_is_valid?(params[:customer_access_code])
+    user_owns_dataset = (current_user.id == @dataset.user.id unless current_user == nil)
+    @can_show_dataset = customer_code_valid || user_owns_dataset
+
+    if @can_show_dataset
       if @dataset.spreadsheet?
         @dataset.file.open do |file|
           @data = SmarterCSV.process(file)
@@ -26,8 +30,20 @@ class DatasetsController < ApplicationController
         @notion_url = "https://react-notion-x-demo.transitivebullsh.it/#{notion_code}"
       end
     else
+      # render the paywall with a blank layout (ie without sidebar)
       @checkout_url = @dataset.stripe_create_checkout_session
     end
+
+    # decide whether to render dataset or paywall, and whether to show application UI or blank ui -
+    # paywall           - user doesn't own, and incorrect code
+    # dataset, blank ui - correct code, doesn't own
+    # dataset, app ui   - correct code, owns
+    if user_owns_dataset
+      render 'datasets/show', layout: 'application'
+    else
+      render 'datasets/show', layout: 'blank'
+    end
+
   end
 
   # GET /datasets/new
@@ -37,6 +53,7 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1/edit
   def edit
+    gon.dataset_type = @dataset.dataset_type
   end
 
   # POST /datasets or /datasets.json
@@ -80,13 +97,13 @@ class DatasetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_dataset
-      @dataset = Dataset.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_dataset
+    @dataset = Dataset.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def dataset_params
-      params.require(:dataset).permit(:name, :file, :price, :customer_access_code, :database_url, :dataset_type)
-    end
+  # Only allow a list of trusted parameters through.
+  def dataset_params
+    params.require(:dataset).permit(:name, :file, :price, :customer_access_code, :database_url, :dataset_type)
+  end
 end

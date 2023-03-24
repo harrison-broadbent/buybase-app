@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   resources :datasets
-  get 'home/index'
+  get '/dashboard', to: 'home#index'
   get '/checkout_success', to: 'access_codes#new'
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-  resources :users, only: :show
-  root to: 'home#index'
+  resource :user, only: :show
+  # root to: 'home#index'
+  root to: 'datasets#index'
 end

@@ -7,6 +7,7 @@ class AccessCodesController < ApplicationController
     session = Stripe::Checkout::Session.retrieve(params[:session_id], {stripe_account: @user.connected_account_id})
     customer = Stripe::Customer.retrieve(session.customer, {stripe_account: @user.connected_account_id})
 
+    # FIXME: handle reloading since currently it genereates a new code
     @access_code = AccessCode.create(code: Haikunator.haikunate, customer_email: customer.email, user_id: params[:user_id], dataset_id: params[:dataset_id])
     @access_code.save
 

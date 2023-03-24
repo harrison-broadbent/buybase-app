@@ -26,7 +26,7 @@ class Dataset < ApplicationRecord
   has_one_attached :file, dependent: :destroy
   has_many :access_codes, dependent: :destroy
 
-  validates_presence_of :dataset_type
+  validates_presence_of :name, :dataset_type
   validates_presence_of :database_url, unless: :spreadsheet?
 
   after_create :stripe_create_dataset_product
