@@ -37,61 +37,61 @@
 
 
 
-<script>
-    // USES VUE FOR SORTING
-    // function sortTableData(data, key, order) {
-    //     // data is an array of "col#" hashes, which we want to sort asc/desc by "key"
-    //     let sorted_data = _.sortBy(data, key)
-    //
-    //     if (order === "asc") {
-    //         return sorted_data
-    //     }
-    //     else if (order === "desc")
-    //     {
-    //         return sorted_data.reverse()
-    //     }
-    // }
-    // gon.table_data = sortTableData(gon.table_data, "latd", "asc")
-    // console.log(gon.table_data)
-    const { createApp } = Vue
+<!--<script>-->
+<!--    // USES VUE FOR SORTING-->
+<!--    // function sortTableData(data, key, order) {-->
+<!--    //     // data is an array of "col#" hashes, which we want to sort asc/desc by "key"-->
+<!--    //     let sorted_data = _.sortBy(data, key)-->
+<!--    //-->
+<!--    //     if (order === "asc") {-->
+<!--    //         return sorted_data-->
+<!--    //     }-->
+<!--    //     else if (order === "desc")-->
+<!--    //     {-->
+<!--    //         return sorted_data.reverse()-->
+<!--    //     }-->
+<!--    // }-->
+<!--    // gon.table_data = sortTableData(gon.table_data, "latd", "asc")-->
+<!--    // console.log(gon.table_data)-->
+<!--    const { createApp } = Vue-->
 
-    createApp({
-        data() {
-            return {
-                table_data: gon.table_data,
-                headers: Object.keys(gon.table_data[0]),
-                active_sort_direction: "desc",
-                active_sort_heading: null,
-            }
-        },
-        methods: {
-            sortTableData(key) {
-                // data is an array of "col#" hashes, which we want to sort asc/desc by "key"
-                let td = _.sortBy(this.table_data, key)
+<!--    createApp({-->
+<!--        data() {-->
+<!--            return {-->
+<!--                table_data: gon.table_data,-->
+<!--                headers: Object.keys(gon.table_data[0]),-->
+<!--                active_sort_direction: "desc",-->
+<!--                active_sort_heading: null,-->
+<!--            }-->
+<!--        },-->
+<!--        methods: {-->
+<!--            sortTableData(key) {-->
+<!--                // data is an array of "col#" hashes, which we want to sort asc/desc by "key"-->
+<!--                let td = _.sortBy(this.table_data, key)-->
 
-                // if we sorted by this col last time, sort the other way (asc/desc)
-                if (this.active_sort_heading !== key) {
-                    this.active_sort_heading = key
-                    this.active_sort_direction = "desc"
-                } else {
-                    this.active_sort_direction === "desc" ? this.active_sort_direction = "asc" : this.active_sort_direction = "desc"
-                }
+<!--                // if we sorted by this col last time, sort the other way (asc/desc)-->
+<!--                if (this.active_sort_heading !== key) {-->
+<!--                    this.active_sort_heading = key-->
+<!--                    this.active_sort_direction = "desc"-->
+<!--                } else {-->
+<!--                    this.active_sort_direction === "desc" ? this.active_sort_direction = "asc" : this.active_sort_direction = "desc"-->
+<!--                }-->
 
-                this.active_sort_direction === "asc" ? td.reverse() : td
-                console.log(td)
-                this.table_data = td
+<!--                this.active_sort_direction === "asc" ? td.reverse() : td-->
+<!--                console.log(td)-->
+<!--                this.table_data = td-->
 
 
-                // if (order === "asc") {
-                //      this.table_data = sorted_data
-                // }
-                // else if (order === "desc")
-                // {
-                //     this.table_data = sorted_data.reverse()
-                // }
-            }
-        }
-    }).mount("#data-table")
+<!--                // if (order === "asc") {-->
+<!--                //      this.table_data = sorted_data-->
+<!--                // }-->
+<!--                // else if (order === "desc")-->
+<!--                // {-->
+<!--                //     this.table_data = sorted_data.reverse()-->
+<!--                // }-->
+<!--            }-->
+<!--        }-->
+<!--    }).mount("#data-table")-->
 
-    console.log("mounted vue app")
-</script>
+<!--    console.log("mounted vue app")-->
+<!--</script>-->
