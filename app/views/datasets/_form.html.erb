@@ -47,14 +47,14 @@
             </div>
           </div>
 
-          <div v-if="selectedDataType!='spreadsheet'" class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+          <div v-if="selectedDataType == 'airtable' || selectedDataType == 'notion'" class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
             <%= form.label :database_url, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
             <div class="mt-2 sm:col-span-2 sm:mt-0">
               <%= form.text_field :database_url, class: "block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
             </div>
           </div>
 
-          <div v-if="selectedDataType=='spreadsheet'" class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+          <div v-if="selectedDataType == 'spreadsheet'" class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
             <%= form.label :file, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
             <div class="mt-2 sm:col-span-2 sm:mt-0">
               <%= form.file_field :file, class: "block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
@@ -65,9 +65,16 @@
       </div>
 
       <div class="pt-5">
-        <div class="flex justify-end gap-x-3">
-          <%= button_to "Cancel", datasets_path, method: :get, class: "rounded-md bg-white py-2 px-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
-          <%= form.submit class: "inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+        <div class="flex gap-x-3 justify-between">
+          <div class="">
+            <% if @dataset.persisted? %>
+              <%= button_to "Delete", dataset_path, method: :delete, data: {"turbo-confirm": 'Are you sure you want to delete this dataset?'}, class: "rounded-md bg-white py-2 px-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
+          <% end %>
+          </div>
+          <div class="flex gap-x-3">
+            <%= link_to "Cancel", datasets_path, class: "rounded-md bg-white py-2 px-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
+            <%= form.submit class: "inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+          </div>
         </div>
       </div>
     </div>
