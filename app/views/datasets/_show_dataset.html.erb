@@ -1,6 +1,6 @@
-<div class="mb-8 p-3 md:p-0 md:flex md:items-center md:justify-between">
+<div class="mb-6 p-3 md:p-0 md:flex md:items-center md:justify-between">
   <div class="min-w-0 flex-1">
-    <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"><%= @dataset.name %></h2>
+    <h2 class="font-bold leading-7 text-gray-900 sm:truncate sm:text-xl sm:tracking-tight"><%= @dataset.name %></h2>
     <div class="flex flex-row items-center text-center mt-1">
       <p class="max-w-2xl text-sm text-gray-500">Created by <%= @dataset.user.name %></p>
       <img class="ml-1 inline-block h-4 w-4 rounded-full ring-2 ring-white" src="<%= @dataset.user.image %>">
@@ -21,14 +21,10 @@
   <% if @dataset.spreadsheet? && @data %>
     <%= render 'datasets/data_table', data: @data %>
   <% elsif @dataset.airtable?  %>
-    <div class="w-full h-[75vh] rounded-md shadow-lg">
-<!--      <div class="rounded-t-md w-full p-1 bg-indigo-600 text-sm text-gray-700 flex flex-row items-center">-->
-<!--        <img class="h-4 w-4 ml-2 mr-2" src="https://img.icons8.com/ios/64/airtable.png" alt="">-->
-<!--        Airtable-->
-<!--      </div>-->
+    <div class="w-full h-[80vh] rounded-md shadow-lg">
       <iframe src="<%= @airtable_url %>" class="w-full h-full"></iframe>
     </div>
   <% elsif @dataset.notion? %>
-    <iframe src="<%= @notion_url %>" class="w-full h-[75vh] rounded-md shadow-lg"></iframe>
+    <iframe src="<%= @notion_url %>" class="w-full h-[80vh] rounded-md shadow-lg"></iframe>
   <% end %>
 </div>

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
   <html>
     <%= render "layouts/html_head" %>
-    <body class="bg-white max-w-5xl flex mx-auto mt-12">
+    <body class="bg-white max-w-5xl flex flex-col mx-auto mt-12">
       <%= render 'layouts/notice', id: "notice", notice: notice %>
       <%= render 'layouts/alert', id: "alert", alert: alert %>
       <%= yield %>
