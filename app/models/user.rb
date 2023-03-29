@@ -78,7 +78,7 @@ class User < ApplicationRecord
     end
 
     # Create a hash with all dates within the last 7 days and set the value to 0 by default
-    dates = (0..n-1).map { |i| i.days.ago.to_date }
+    dates = (n-1..0).map { |i| i.days.ago.to_date }
     empty_events_by_date = Hash[dates.map { |date| [date.strftime("%Y-%m-%d"), 0] }]
 
     # Merge the empty hash with the events hash to get the final result

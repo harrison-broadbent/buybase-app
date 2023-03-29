@@ -83,6 +83,7 @@ class Dataset < ApplicationRecord
               .where(properties: { id: self.id })
               .group_by_day(:time, range: range, default_value: 0)
               .count
+              .reverse_merge(Hash.new(0))
 
     range.map { |date| [date.strftime("%Y-%m-%d"), views[date] || 0] }.to_h
   end
