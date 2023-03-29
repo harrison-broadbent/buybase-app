@@ -56,14 +56,14 @@ class User < ApplicationRecord
                      Stripe::AccountLink.create({
                                                   account: self.connected_account_id,
                                                   refresh_url: 'https://app.buybase.io',
-                                                  return_url: "https://app.buybase.io/users/#{self.id}",
+                                                  return_url: 'https://app.buybase.io/user',
                                                   type: 'account_onboarding'
                                                 })
                    else
                      Stripe::AccountLink.create({
                                                   account: self.connected_account_id,
                                                   refresh_url: 'http://localhost:3000',
-                                                  return_url: "http://localhost:3000/users/#{self.id}",
+                                                  return_url: 'http://localhost:3000/user',
                                                   type: 'account_onboarding'
                                                 })
                    end
