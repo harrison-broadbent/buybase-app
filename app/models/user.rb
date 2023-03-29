@@ -67,6 +67,24 @@ class User < ApplicationRecord
     return account
   end
 
+  def total_dataset_views_last_n_days(n)
+    datasets_views = datasets.map do |dataset|
+      dataset.views_past_n_days(n)
+    end
+
+    # Merge all hashes into a single hash with summed values
+    merged_views = datasets_views.reduce do |result, views|
+      result.merge(views) { |key, v1, v2| v1 + v2 }
+    end
+
+    # Create a hash with all dates within the last 7 days and set the value to 0 by default
+    dates = (0..n-1).map { |i| i.days.ago.to_date }
+    empty_events_by_date = Hash[dates.map { |date| [date.strftime("%Y-%m-%d"), 0] }]
+
+    # Merge the empty hash with the events hash to get the final result
+    empty_events_by_date.merge(merged_views) { |key, empty_value, views_value| views_value }
+  end
+
   ###
 
   # Devise methods

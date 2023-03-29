@@ -44,6 +44,11 @@ class DatasetsController < ApplicationController
       render 'datasets/show', layout: 'blank'
     end
 
+    if current_user.nil?
+      # track pageviews that arent from us
+      ahoy.track "Viewed Dataset", id: @dataset.id
+    end
+
   end
 
   # GET /datasets/new

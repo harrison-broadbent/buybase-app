@@ -72,4 +72,19 @@ class Dataset < ApplicationRecord
     return (self.access_code_ids & access_codes).present?
   end
 
+  def views_past_n_days(n)
+    start_time = n.days.ago.beginning_of_day
+    end_time = Time.current.end_of_day
+    range = (start_time.to_date..end_time.to_date)
+
+    views = Ahoy::Event
+              .where(name: "Viewed Dataset")
+              .where("time >= ? and time <= ?", start_time, end_time)
+              .where(properties: { id: self.id })
+              .group_by_day(:time, range: range, default_value: 0)
+              .count
+
+    range.map { |date| [date.strftime("%Y-%m-%d"), views[date] || 0] }.to_h
+  end
+
 end

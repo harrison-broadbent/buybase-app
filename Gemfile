@@ -90,5 +90,7 @@ gem "roo", "~> 2.9.0"
 gem 'stripe'
 gem 'gon'       # send controller params into views
 gem 'haikunator' # generate pretty access codes
-
+gem 'ahoy_matey'
+gem 'groupdate'
+gem 'chartkick'
 
