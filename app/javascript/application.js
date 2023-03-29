@@ -28,6 +28,26 @@ createApp({
 }).mount("#desktop-menu")
 console.log("mounted menu app")
 
+// Paywall app
+// show/hide paywall on store page
+createApp({
+    methods: {
+        toggleShowPaywall() {
+            this.showPaywall = !this.showPaywall
+        },
+        closePaywall() {
+            this.showPaywall = false
+        },
+    },
+    data() {
+        return {
+            // application menu
+            showPaywall: false,
+        }
+    }
+}).mount("#paywall-purchase-page")
+console.log("mounted paywall app")
+
 createApp({
     methods: {
         initializeDatasetForm() {

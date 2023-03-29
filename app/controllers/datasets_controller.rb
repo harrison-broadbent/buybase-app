@@ -15,7 +15,6 @@ class DatasetsController < ApplicationController
     customer_code_valid = @dataset.access_code_is_valid?(params[:customer_access_code])
     user_owns_dataset = (current_user.id == @dataset.user.id unless current_user == nil)
     @can_show_dataset = customer_code_valid || user_owns_dataset
-
     if @can_show_dataset
       if @dataset.spreadsheet?
         @dataset.file.open do |file|

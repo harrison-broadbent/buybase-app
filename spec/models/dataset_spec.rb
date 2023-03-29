@@ -5,6 +5,7 @@
 #  id                :bigint           not null, primary key
 #  database_url      :string
 #  dataset_type      :integer
+#  description       :text
 #  name              :string
 #  price             :string
 #  created_at        :datetime         not null

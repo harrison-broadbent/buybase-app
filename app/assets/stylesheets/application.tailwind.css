@@ -1,7 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+    .text-gradient {
+        @apply bg-gradient-to-br from-indigo-400 to-indigo-600 bg-clip-text text-transparent;
+    }
 
+    .btn-gradient {
+        @apply bg-gradient-to-br from-indigo-400 to-indigo-600 hover:brightness-110;
+    }
+
+    .gradient {
+        @apply bg-gradient-to-br from-indigo-400 to-indigo-600;
+
+    }
+}
 /*
 
 @layer components {
