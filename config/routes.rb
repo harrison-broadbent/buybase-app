@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :datasets
   resources :access_codes
 
-  get 'stats', to: 'analytics#index'
+  get 'analytics', to: 'analytics#index', as: "analytics"
   get '/dashboard', to: 'home#index'
   get '/checkout_success', to: 'access_codes#checkout_success'
 
