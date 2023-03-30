@@ -82,8 +82,8 @@
     <!-- Product -->
     <div class="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
       <!-- Product image -->
-      <div class="lg:col-span-4 lg:row-end-1">
-        <div class="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg gradient">
+      <div class="lg:col-span-4 lg:row-end-1 shadow-lg">
+        <div class="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg gradient ">
 <!--          <img src="https://tailwindui.com/img/ecommerce-images/product-page-05-product-01.jpg" alt="Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles." class="object-cover object-center">-->
           <div class="mx-auto flex items-center justify-center rounded-md gradient">
             <% if @dataset.notion? %>
@@ -133,9 +133,12 @@
               <%= @dataset.name %>
             </h1>
 
-            <h2 id="information-heading" class="sr-only">Product information</h2>
-            <p class="mt-2 text-sm text-gray-500">Version 1.0 (Updated <%= @dataset.updated_at.to_formatted_s(:short) %>)</p>
+            <div class="flex flex-row items-center text-center mt-1">
+              <p class="mt-1 max-w-2xl text-sm text-gray-500">Created by <%= @dataset.user.name %></p>
+              <img class="ml-1 inline-block h-4 w-4 rounded-full ring-2 ring-white" src="<%= @dataset.user.image %>">
+            </div>
           </div>
+<!--            <p class="mt-2 text-sm text-gray-500">Version 1.0 (Updated <%#= @dataset.updated_at.to_formatted_s(:short) %>)</p>-->
 
         </div>
 
@@ -170,7 +173,7 @@
         <div class="mt-10 border-t border-gray-200 pt-10">
           <h3 class="text-sm font-medium text-gray-900">Share</h3>
 
-          <button id="copy-url-btn" class="mt-4 inline-flex rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+          <button id="copy-url-btn" class="mt-4 inline-flex rounded-md bg-white px-2.5 py-1.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
             </svg>
