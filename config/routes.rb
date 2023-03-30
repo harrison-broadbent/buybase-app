@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :datasets
+  resources :access_codes
 
   get 'stats', to: 'analytics#index'
   get '/dashboard', to: 'home#index'

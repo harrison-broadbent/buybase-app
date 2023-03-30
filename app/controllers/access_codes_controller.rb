@@ -1,6 +1,25 @@
 # frozen_string_literal: true
 class AccessCodesController < ApplicationController
   before_action :set_user, :set_dataset, only: :new
+
+  def index
+    access_codes = current_user.access_codes
+    # Initialize an empty hash to store the sorted access codes
+    sorted_access_codes = {}
+
+    # Loop through all the access codes and sort them into the hash
+    access_codes.each do |access_code|
+      dataset_name = Dataset.find(access_code.dataset_id).name
+
+      if sorted_access_codes.has_key?(dataset_name)
+        sorted_access_codes[dataset_name] << access_code
+      else
+        sorted_access_codes[dataset_name] = [access_code]
+      end
+    end
+
+    @access_code_hash = sorted_access_codes
+  end
   def new
     Stripe.api_key = Rails.application.credentials.stripe[:api_key]
 
