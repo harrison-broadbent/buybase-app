@@ -116,5 +116,5 @@ let clipboard = new ClipboardJS(shareBtn, {
 
 clipboard.on('success', function(e) {
     e.trigger.lastChild.innerText = 'Copied link!'
-    setTimeout(() => e.trigger.lastChild.innerText = "Share", 1000)
+    setTimeout(() => e.trigger.lastChild.innerText = "Copy link", 1000)
 });
