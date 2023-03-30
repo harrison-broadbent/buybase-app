@@ -15,7 +15,6 @@ class DatasetsController < ApplicationController
     customer_code_valid = @dataset.access_code_is_valid?(params[:customer_access_code])
     user_owns_dataset = (current_user.id == @dataset.user.id unless current_user == nil)
     @can_show_dataset = customer_code_valid || user_owns_dataset
-
     if @can_show_dataset
       if @dataset.spreadsheet?
         @dataset.file.open do |file|
@@ -109,6 +108,6 @@ class DatasetsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def dataset_params
-    params.require(:dataset).permit(:name, :file, :price, :customer_access_code, :database_url, :dataset_type)
+    params.require(:dataset).permit(:name, :description, :file, :price, :customer_access_code, :database_url, :dataset_type)
   end
 end
