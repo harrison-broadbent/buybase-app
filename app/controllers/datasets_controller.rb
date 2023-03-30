@@ -108,6 +108,6 @@ class DatasetsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def dataset_params
-    params.require(:dataset).permit(:name, :file, :price, :customer_access_code, :database_url, :dataset_type)
+    params.require(:dataset).permit(:name, :description, :file, :price, :customer_access_code, :database_url, :dataset_type)
   end
 end
