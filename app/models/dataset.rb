@@ -5,6 +5,7 @@
 #  id                :bigint           not null, primary key
 #  database_url      :string
 #  dataset_type      :integer
+#  description       :text
 #  name              :string
 #  price             :string
 #  created_at        :datetime         not null
@@ -53,16 +54,30 @@ class Dataset < ApplicationRecord
 
   def stripe_create_checkout_session
     Stripe.api_key = Rails.application.credentials.stripe[:api_key]
-    session =  Stripe::Checkout::Session.create({
-                                       mode: 'payment',
-                                       line_items: [{price: self.stripe_price_id, quantity: 1}],
-                                       # take a percentage fee of each transaction
-                                       payment_intent_data: {application_fee_amount: ((self.price.to_f * self.user.stripe_checkout_percentage_fee) * 100).to_i},
-                                       success_url: "http://localhost:3000/checkout_success?session_id={CHECKOUT_SESSION_ID}&user_id=#{self.user.id}&dataset_id=#{self.id}",
-                                       cancel_url: "http://localhost:3000/datasets/#{self.id}"
-                                     },
-                                     {stripe_account: self.user.connected_account_id}
-    )
+    session = nil
+    if Rails.env.production?
+      session = Stripe::Checkout::Session.create({
+                                                    mode: 'payment',
+                                                    line_items: [{price: self.stripe_price_id, quantity: 1}],
+                                                    # take a percentage fee of each transaction
+                                                    payment_intent_data: {application_fee_amount: ((self.price.to_f * self.user.stripe_checkout_percentage_fee) * 100).to_i},
+                                                    success_url: "https://app.buybase.io/checkout_success?session_id={CHECKOUT_SESSION_ID}&user_id=#{self.user.id}&dataset_id=#{self.id}",
+                                                    cancel_url: "https://app.buybase.io/datasets/#{self.id}"
+                                                  },
+                                                  {stripe_account: self.user.connected_account_id}
+      )
+    else
+      session = Stripe::Checkout::Session.create({
+                                         mode: 'payment',
+                                         line_items: [{price: self.stripe_price_id, quantity: 1}],
+                                         # take a percentage fee of each transaction
+                                         payment_intent_data: {application_fee_amount: ((self.price.to_f * self.user.stripe_checkout_percentage_fee) * 100).to_i},
+                                         success_url: "http://localhost:3000/checkout_success?session_id={CHECKOUT_SESSION_ID}&user_id=#{self.user.id}&dataset_id=#{self.id}",
+                                         cancel_url: "http://localhost:3000/datasets/#{self.id}"
+                                       },
+                                       {stripe_account: self.user.connected_account_id}
+      )
+    end
     return session.url
   end
 

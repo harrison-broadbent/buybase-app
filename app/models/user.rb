@@ -41,7 +41,7 @@ class User < ApplicationRecord
   def stripe_create_connected_account
     # create stripe connected account for the user
     Stripe.api_key = Rails.application.credentials.stripe[:api_key]
-    acc = Stripe::Account.create({type: 'standard'})
+    acc = Stripe::Account.create({ type: 'standard' })
 
     self.connected_account_id = acc.id
     self.stripe_connected_account_success = false
@@ -52,12 +52,21 @@ class User < ApplicationRecord
 
   def stripe_generate_new_account_link
     Stripe.api_key = Rails.application.credentials.stripe[:api_key]
-    account_link = Stripe::AccountLink.create({
-                                                account: self.connected_account_id,
-                                                refresh_url: "http://localhost:3000",
-                                                return_url: "http://localhost:3000/users/#{self.id}",
-                                                type:"account_onboarding"
-                                              })
+    account_link = if Rails.env.production?
+                     Stripe::AccountLink.create({
+                                                  account: self.connected_account_id,
+                                                  refresh_url: 'https://app.buybase.io',
+                                                  return_url: 'https://app.buybase.io/user',
+                                                  type: 'account_onboarding'
+                                                })
+                   else
+                     Stripe::AccountLink.create({
+                                                  account: self.connected_account_id,
+                                                  refresh_url: 'http://localhost:3000',
+                                                  return_url: 'http://localhost:3000/user',
+                                                  type: 'account_onboarding'
+                                                })
+                   end
     return account_link
   end
 
@@ -96,8 +105,8 @@ class User < ApplicationRecord
     end
 
     # Create a hash with all dates within the last 7 days and set the value to 0 by default
-    dates = (n-1..0).map { |i| i.days.ago.to_date }
-    empty_events_by_date = Hash[dates.map { |date| [date.strftime("%Y-%m-%d"), 0] }]
+    dates = (n - 1..0).map { |i| i.days.ago.to_date }
+    empty_events_by_date = Hash[dates.map { |date| [date.strftime('%Y-%m-%d'), 0] }]
 
     # Merge the empty hash with the events hash to get the final result
     empty_events_by_date.merge(merged_views) { |key, empty_value, views_value| views_value }
@@ -120,8 +129,8 @@ class User < ApplicationRecord
 
   def self.new_with_session(params, session)
     super.tap do |user|
-      if data = session["devise.google_oauth2"] && session["devise.google_oauth2_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
+      if data = session['devise.google_oauth2'] && session['devise.google_oauth2_data']['extra']['raw_info']
+        user.email = data['email'] if user.email.blank?
       end
     end
   end
