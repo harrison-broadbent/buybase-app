@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class AccessCodesController < ApplicationController
-  before_action :set_user, :set_dataset, only: :new
+  before_action :set_user, :set_dataset, only: :checkout_success
 
   def index
     access_codes = current_user.access_codes
@@ -21,6 +21,32 @@ class AccessCodesController < ApplicationController
     @access_code_hash = sorted_access_codes
   end
   def new
+    @access_code = current_user.access_codes.build
+  end
+
+  def create
+    @access_code = current_user.access_codes.create(access_code_params)
+
+    respond_to do |format|
+      if @access_code.save
+        format.html { redirect_to access_codes_path, notice: 'Access code was successfully created.' }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /datasets/1 or /datasets/1.json
+  def update
+    respond_to do |format|
+      if @access_code.update(dataset_params)
+        format.html { redirect_to access_codes_path, notice: 'Access code was successfully updated.' }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+  def checkout_success
     Stripe.api_key = Rails.application.credentials.stripe[:api_key]
 
     session = Stripe::Checkout::Session.retrieve(params[:session_id], {stripe_account: @user.connected_account_id})
@@ -36,7 +62,7 @@ class AccessCodesController < ApplicationController
   private
   # Only allow a list of trusted parameters through.
   def access_code_params
-    params.require(:access_code).permit(:session_id, :user_id, :dataset_id)
+    params.require(:access_code).permit(:session_id, :user_id, :dataset_id, :customer_email)
   end
 
   def set_user
