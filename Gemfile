@@ -93,4 +93,4 @@ gem 'haikunator' # generate pretty access codes
 gem 'ahoy_matey'
 gem 'groupdate'
 gem 'chartkick'
-
+gem 'sendgrid-ruby'
