@@ -12,7 +12,10 @@
 
     .gradient {
         @apply bg-gradient-to-br from-indigo-400 to-indigo-600;
+    }
 
+    .gradient-gray {
+        @apply bg-gradient-to-br from-slate-400 to-slate-600;
     }
 }
 /*

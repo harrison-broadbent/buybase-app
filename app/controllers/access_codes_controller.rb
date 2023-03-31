@@ -26,6 +26,7 @@ class AccessCodesController < ApplicationController
 
   def create
     @access_code = current_user.access_codes.create(access_code_params)
+    @access_code.code = Haikunator.haikunate
 
     respond_to do |format|
       if @access_code.save

@@ -83,17 +83,21 @@
     <div class="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
       <!-- Product image -->
       <div class="lg:col-span-4 lg:row-end-1 shadow-lg">
-        <div class="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg gradient ">
+        <div class="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg ">
 <!--          <img src="https://tailwindui.com/img/ecommerce-images/product-page-05-product-01.jpg" alt="Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles." class="object-cover object-center">-->
-          <div class="mx-auto flex items-center justify-center rounded-md gradient">
             <% if @dataset.notion? %>
-              <img class="h-36 w-36" src="https://img.icons8.com/ios/64/notion.png" alt="">
+              <div class="mx-auto flex items-center justify-center rounded-md gradient-gray">
+                  <img class="h-36 w-36" src="https://img.icons8.com/ios/256/notion.png" alt="">
+              </div>
             <% elsif @dataset.airtable? %>
-              <img class="h-72 w-72" src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Airtable_Logo.svg" alt="">
+              <div class="mx-auto flex items-center justify-center rounded-md gradient">
+                <img class="h-72 w-72" src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Airtable_Logo.svg" alt="">
+              </div>
             <% elsif @dataset.spreadsheet? %>
-              <img class="h-6 w-6" src="https://img.icons8.com/ios/64/year-view.png" alt="">
+              <div class="mx-auto flex items-center justify-center rounded-md gradient">
+                <img class="h-6 w-6" src="https://img.icons8.com/ios/64/year-view.png" alt="">
+              </div>
             <% end %>
-          </div>
         </div>
       </div>
 
@@ -151,6 +155,7 @@
 <!--          <button type="button" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">Buy for $<%#= @dataset.price %></button>-->
           <button @:click="toggleShowPaywall" type="button" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-50 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">View Dataset &rarr;</button>
         </div>
+        <p class="mt-6 text-sm text-gray-400">Purchasing access will grant you a special access key, which you can use to log in and view the dataset.</p>
 
 <!--        <div class="mt-10 border-t border-gray-200 pt-10">-->
 <!--          <h3 class="text-sm font-medium text-gray-900">Highlights</h3>-->
@@ -170,7 +175,7 @@
 <!--          <p class="mt-4 text-sm text-gray-500">For personal and professional use. You cannot resell or redistribute these icons in their original or modified state. <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Read full license</a></p>-->
 <!--        </div>-->
 
-        <div class="mt-10 border-t border-gray-200 pt-10">
+        <div class="mt-4 border-t border-gray-200 pt-10">
           <h3 class="text-sm font-medium text-gray-900">Share</h3>
 
           <button id="copy-url-btn" class="mt-4 inline-flex rounded-md bg-white px-2.5 py-1.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
