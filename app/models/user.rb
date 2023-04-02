@@ -76,40 +76,38 @@ class User < ApplicationRecord
     return account
   end
 
+  # last n days of dataset views — using Ahoy::Event - "Viewed Dataset"
   def total_dataset_views_last_n_days(n)
     datasets_views = datasets.map do |dataset|
-      dataset.events_past_n_days("Viewed Dataset", n)
+      dataset.events_past_n_days('Viewed Dataset', n)
     end
 
-    # Merge all hashes into a single hash with summed values
-    merged_views = datasets_views.reduce do |result, views|
-      result.merge(views) { |key, v1, v2| v1 + v2 }
-    end
+    self.map_analytics_events_to_date_hash(datasets_views, n)
+  end
 
-    # Create a hash with all dates within the last 7 days and set the value to 0 by default
-    dates = (n-1..0).map { |i| i.days.ago.to_date }
-    empty_events_by_date = Hash[dates.map { |date| [date.strftime("%Y-%m-%d"), 0] }]
-
-    # Merge the empty hash with the events hash to get the final result
-    empty_events_by_date.merge(merged_views) { |key, empty_value, views_value| views_value }
-    end
-
+  # last n days of dataset purchases — using Ahoy::Event - "Purchases Dataset"
   def total_dataset_purchases_last_n_days(n)
-    datasets_views = datasets.map do |dataset|
-      dataset.events_past_n_days("Purchased Dataset", n)
+    datasets_purchases = datasets.map do |dataset|
+      dataset.events_past_n_days('Purchased Dataset', n)
     end
+
+    self.map_analytics_events_to_date_hash(datasets_purchases, n)
+  end
+
+  def map_analytics_events_to_date_hash(events, n)
+    events ||= {} # handle nil case
 
     # Merge all hashes into a single hash with summed values
-    merged_views = datasets_views.reduce do |result, views|
-      result.merge(views) { |key, v1, v2| v1 + v2 }
+    merged_events = events.reduce do |result, views|
+      result.merge(events) { |key, v1, v2| v1 + v2 }
     end
+    merged_events||= {} # handle nil case
 
     # Create a hash with all dates within the last 7 days and set the value to 0 by default
-    dates = (n - 1..0).map { |i| i.days.ago.to_date }
+    dates = (0..(n - 1)).map { |i| i.days.ago.to_date }.reverse
     empty_events_by_date = Hash[dates.map { |date| [date.strftime('%Y-%m-%d'), 0] }]
 
-    # Merge the empty hash with the events hash to get the final result
-    empty_events_by_date.merge(merged_views) { |key, empty_value, views_value| views_value }
+    return empty_events_by_date.merge(merged_events) { |key, empty_value, event_value| event_value }
   end
 
   ###
