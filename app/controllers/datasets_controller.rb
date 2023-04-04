@@ -30,7 +30,7 @@ class DatasetsController < ApplicationController
       end
     else
       # render the paywall with a blank layout (ie without sidebar)
-      @checkout_url = @dataset.stripe_create_checkout_session
+      @checkout_url = @dataset.stripe_create_checkout_session if @dataset.user.stripe_connected_account_success
     end
 
     # decide whether to render dataset or paywall, and whether to show application UI or blank ui -
