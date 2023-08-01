@@ -20,4 +20,4 @@ View the website — https://buybase.io
 - (There might be more... I worked on Buybase earlier this year, but have since been working on other things, namely RailsNotes).
 - **Note:** unfortunately, when you do get the app running, you wont be able to login — the Google Oauth setup isn't working anymore. But you can comment out the `before_action authenticate_user!` in the home and dataset controllers to see this —
 
-<img width="1338" alt="Screenshot 2023-07-27 at 5 06 58 pm" src="https://github.com/harrison-broadbent/buybase-app/assets/5293153/543d4cef-f4f3-451b-b321-81753fa61fed">
+<img width="1470" alt="Screenshot 2023-08-01 at 11 28 31 am" src="https://github.com/harrison-broadbent/buybase-app/assets/5293153/e72d3929-7e1e-4f7d-8bda-cb760180bd16">
