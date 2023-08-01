@@ -18,3 +18,6 @@ View the website — https://buybase.io
 - You also should run `rails db:create` and `rails db:migrate` to set up the database correctly (there are no seeds to run).
 - To test the payments flow, you'll also need to add a Stripe :api_key into your Rails credentials with `rails credentials:edit`, such that we can access it with `Rails.application.credentials.stripe[:api_key]`.
 - (There might be more... I worked on Buybase earlier this year, but have since been working on other things, namely RailsNotes).
+- **Note:** unfortunately, when you do get the app running, you wont be able to login — the Google Oauth setup isn't working anymore. But you can comment out the `before_action authenticate_user!` in the home and dataset controllers to see this —
+
+<img width="1338" alt="Screenshot 2023-07-27 at 5 06 58 pm" src="https://github.com/harrison-broadbent/buybase-app/assets/5293153/543d4cef-f4f3-451b-b321-81753fa61fed">
